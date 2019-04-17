@@ -1,6 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0">
   <title>Настроение</title>
   <script id="quotes_json" type="application/json">
     [
@@ -19,7 +21,41 @@
       }
     ]
   </script>
+  <link rel="stylesheet" href="css/standardize.css">
+  <link rel="stylesheet" href="css/index-grid.css">
+  <link rel="stylesheet" href="css/index.css">
 </head>
-<body>
+<body class="body page-index clearfix">
+  <div class="container clearfix">
+    <div class="quote-container clearfix">
+      <p id='phrase' class="quote-phrase"></p>
+      <p id='signature' class="quote-signature"></p>
+    </div>
+  </div>
+  <script>
+        var jsonQuotes = document.getElementById("quotes_json");
+        var quotes = JSON.parse(quotes_json.textContent);
+        var contentLength = quotes.length;
+        function getRandomNumber(min, max) {
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        var randomNumber = getRandomNumber(0, contentLength-1);
+
+        function getOneQuote(quotes, randomNumber) {
+            return quotes[randomNumber];
+        }
+        quote = getOneQuote(quotes, randomNumber);
+        function addQuote(quote) {
+            document.getElementById("phrase").textContent = "";
+            document.getElementById("signature").textContent = "";
+            if(quote.phrase!=undefined){
+              document.getElementById("phrase").textContent = quote.phrase;
+            }
+            if(quote.signature!=undefined){
+              document.getElementById("signature").textContent = quote.signature;
+            }
+        }
+        addQuote(quote);
+  </script>
 </body>
 </html>
